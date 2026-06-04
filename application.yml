@@ -1,0 +1,44 @@
+# Global configurations for all microservices
+# spring:
+#   datasource:
+#     driver-class-name: ${db_driver_class_name}
+#     username: ${db_user}
+#     password: ${db_pass}
+#   jpa:
+#     hibernate:
+#       ddl-auto: update
+#     show-sql: true
+#     database-platform: ${db_platform}
+#     open-in-view: false
+#     properties:
+#       hibernate:
+#         format_sql: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${eureka_url}
+  instance:
+    prefer-ip-address: true
+
+jwt:
+  secret: ${secret_id}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"  # Opens all tabs in Spring Boot Admin
+  endpoint:
+    health:
+      show-details: always # Shows DB and Disk health
+    env:
+      show-values: always # Allows you to see the actual profile name
+
+# This section populates the "Info" tab in Admin UI
+info:
+  app:
+    name: ${spring.application.name}
+    description: HousingAid Microservice
+    version: 1.0.0
+    env: "@spring.profiles.active@" # This pulls the active profile name

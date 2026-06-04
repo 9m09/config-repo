@@ -1,0 +1,20 @@
+# base-db.yml
+spring:
+  datasource:
+    driver-class-name: ${db_driver_class_name}
+    username: ${db_user}
+    password: ${db_pass}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: ${db_platform}
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: false

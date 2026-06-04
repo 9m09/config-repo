@@ -1,0 +1,27 @@
+# This file: application-prod.yml in your Config Repo
+
+# 1. Disable Swagger/OpenAPI for security
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
+
+# 2. Disable Spring Boot Admin Client
+spring:
+  boot:
+    admin:
+      client:
+        enabled: false
+
+# 3. Secure Actuator Endpoints
+management:
+  endpoints:
+    web:
+      exposure:
+        # Only expose 'health' and 'info' for monitoring
+        include: health, info
+  endpoint:
+    health:
+      # Hide DB details and disk space info from public view
+      show-details: never

@@ -1,0 +1,8 @@
+server:
+  port: ${application_port}
+
+spring:
+  config:
+    import: "base-db.yml"
+  datasource:
+    url: ${db_base_url}/applicationdb

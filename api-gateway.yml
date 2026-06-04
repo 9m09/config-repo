@@ -1,0 +1,202 @@
+server:
+  port: ${api_gateway_port}
+
+spring:
+  cloud:
+    gateway:
+      # --- ADDED THIS CORS BLOCK ---
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: 
+              - "http://localhost:4200"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+            allowCredentials: true
+      routes:
+        # --- ALLOCATION SERVICE ---
+        - id: ALLOCATION-SERVICE-DOCS
+          uri: lb://ALLOCATION-SERVICE
+          predicates:
+            - Path=/allocation/v3/api-docs
+          filters:
+            - RewritePath=/allocation/v3/api-docs, /v3/api-docs
+        - id: ALLOCATION-SERVICE
+          uri: lb://ALLOCATION-SERVICE
+          predicates:
+            - Path=/allocation/**
+
+        # --- APPLICATION SERVICE ---
+        - id: APPLICATION-SERVICE-DOCS
+          uri: lb://APPLICATION-SERVICE
+          predicates:
+            - Path=/application/v3/api-docs
+          filters:
+            - RewritePath=/application/v3/api-docs, /v3/api-docs
+        - id: APPLICATION-SERVICE
+          uri: lb://APPLICATION-SERVICE
+          predicates:
+            - Path=/application/**
+
+        # --- AUTH SERVICE ---
+        - id: AUTH-SERVICE-DOCS
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/auths/v3/api-docs
+          filters:
+            - RewritePath=/auths/v3/api-docs, /v3/api-docs
+        - id: AUTH-SERVICE
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/auths/**
+
+        # --- COMPLIANCE SERVICE ---
+        - id: COMPLIANCE-SERVICE-DOCS
+          uri: lb://COMPLIANCE-SERVICE
+          predicates:
+            - Path=/compliance/v3/api-docs
+          filters:
+            - RewritePath=/compliance/v3/api-docs, /v3/api-docs
+        - id: COMPLIANCE-SERVICE
+          uri: lb://COMPLIANCE-SERVICE
+          predicates:
+            - Path=/compliance/**
+
+        # --- INVENTORY SERVICE ---
+        - id: INVENTORY-SERVICE-DOCS
+          uri: lb://INVENTORY-SERVICE
+          predicates:
+            - Path=/inventory/v3/api-docs
+          filters:
+            - RewritePath=/inventory/v3/api-docs, /v3/api-docs
+        - id: INVENTORY-SERVICE
+          uri: lb://INVENTORY-SERVICE
+          predicates:
+            - Path=/inventory/**
+
+        # --- NOTIFICATION SERVICE ---
+        - id: NOTIFICATION-SERVICE-DOCS
+          uri: lb://NOTIFICATION-SERVICE
+          predicates:
+            - Path=/notification/v3/api-docs
+          filters:
+            - RewritePath=/notification/v3/api-docs, /v3/api-docs
+        - id: NOTIFICATION-SERVICE
+          uri: lb://NOTIFICATION-SERVICE
+          predicates:
+            - Path=/notification/**
+
+# server:
+#   port: ${api_gateway_port}
+
+# spring:
+#   cloud:
+#     gateway:
+#       discovery:
+#         locator:
+#           enabled: true
+#           lower-case-service-id: true
+#       routes:
+#         - id: ALLOCATION-SERVICE
+#           uri: lb://ALLOCATION-SERVICE
+#           predicates:
+#             - Path=/allocation/**
+            
+#         - id: APPLICATION-SERVICE
+#           uri: lb://APPLICATION-SERVICE
+#           predicates:
+#             - Path=/application/**
+            
+#         - id: AUTH-SERVICE
+#           uri: lb://AUTH-SERVICE
+#           predicates:
+#             - Path=/auths/**
+            
+#         - id: COMPLIANCE-SERVICE-DOCS
+#           uri: lb://COMPLIANCE-SERVICE
+#           predicates:
+#             - Path=/compliance/v3/api-docs
+#           filters:
+#             - RewritePath=/compliance/v3/api-docs, /v3/api-docs
+            
+#         - id: COMPLIANCE-SERVICE
+#           uri: lb://COMPLIANCE-SERVICE
+#           predicates:
+#             - Path=/compliance/**
+            
+#         - id: INVENTORY-SERVICE
+#           uri: lb://INVENTORY-SERVICE
+#           predicates:
+#             - Path=/inventory/**
+            
+#         - id: NOTIFICATION-SERVICE
+#           uri: lb://NOTIFICATION-SERVICE
+#           predicates:
+#             - Path=/notification/**
+
+# server:
+#   port: ${api_gateway_port}
+
+# spring:
+#   cloud:
+#     gateway:
+#       discovery:
+#         locator:
+#           enabled: true
+#           lower-case-service-id: true
+#       routes:
+#         - id: ALLOCATION-SERVICE
+#           uri: lb://ALLOCATION-SERVICE
+#           predicates:
+#             - Path=/allocation/**
+#           # filters:
+#           #   - RewritePath=/allocation/(?<path>.*), /$\{path} 
+            
+#         - id: APPLICATION-SERVICE
+#           uri: lb://APPLICATION-SERVICE
+#           predicates:
+#             - Path=/application/**
+#           # filters:
+#           #   - RewritePath=/application/(?<path>.*), /$\{path}
+            
+#         - id: AUTH-SERVICE
+#           uri: lb://AUTH-SERVICE
+#           predicates:
+#             - Path=/auths/**
+#           # filters:
+#           #   - RewritePath=/auths/(?<path>.*), /$\{path}
+            
+         
+
+#         - id: COMPLIANCE-SERVICE-DOCS
+#           uri: lb://COMPLIANCE-SERVICE
+#           predicates:
+#             - Path=/compliance/v3/api-docs
+#           filters:
+#             - RewritePath=/v3/api-docs
+            
+#         - id: COMPLIANCE-SERVICE
+#           uri: lb://COMPLIANCE-SERVICE
+#           predicates:
+#             - Path=/compliance/**
+#           # filters:
+#           #   - RewritePath=/comp/(?<path>.*), /$\{path}          
+            
+#         - id: INVENTORY-SERVICE
+#           uri: lb://INVENTORY-SERVICE
+#           predicates:
+#             - Path=/inventory/**
+#           # filters:
+#           #   - RewritePath=/inventory/(?<path>.*), /$\{path}
+            
+#         - id: NOTIFICATION-SERVICE
+#           uri: lb://NOTIFICATION-SERVICE
+#           predicates:
+#             - Path=/notification/**
+#           # filters:
+#           #   - RewritePath=/notification/(?<path>.*), /$\{path}  
